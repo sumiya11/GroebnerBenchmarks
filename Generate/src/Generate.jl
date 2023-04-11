@@ -14,7 +14,7 @@ function generate_systems()
         ("katsura4", Groebner.katsuran(4))
     ]
     
-    path = (@__DIR__)*"/../../_assets/systems"
+    path = (@__DIR__)*"/../../webpage/_assets/systems"
     @info "Writing to $path"
     cd(path)
     for (name, eqs) in systems
@@ -45,15 +45,15 @@ function generate_markdown()
     \\toc
 
     """
-    path = (@__DIR__)*"/../../_assets/systems"
+    path = (@__DIR__)*"/../../webpage/_assets/systems"
     @info "Reading from $path"
     cd(path)
     for name in readdir(".")
         filename = "$name/$name.txt"
         md *= "\n#### $name\n\n"
-        md *= "[$name](../assets/systems/$filename)"
+        md *= "[$name](../assets/systems/$filename)\n"
     end
-    writeto = (@__DIR__)*"/../../systems.md"
+    writeto = (@__DIR__)*"/../../webpage/systems.md"
     @info "Populating $writeto"
     io = open(writeto, "w")
     println(io, md)
