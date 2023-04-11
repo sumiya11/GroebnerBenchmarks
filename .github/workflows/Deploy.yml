@@ -5,6 +5,18 @@ on:
       - main
       - master
 jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v1.0.0
+    - uses: julia-actions/setup-julia@v1
+      with:
+        version: 1
+    - run: julia -e 'using Pkg
+                    Pkg.add("./Generate")
+                    '
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
