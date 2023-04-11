@@ -15,7 +15,7 @@ jobs:
         with:
           version: 1
       - run: julia -e 'using Pkg;
-                       Pkg.dev("Generate");
+                       Pkg.develop("Generate");
                        using Generate; generate();'
   build-and-deploy:
     runs-on: ubuntu-latest
