@@ -13,7 +13,7 @@ function generate()
         ("cyclic4", cyclic4)
     ]
     
-    path = (@__DIR__)*"/generated"
+    path = (@__DIR__)*"/../generated"
     for (name, eqs) in systems
         io = open("$path/$name.txt", "w")
         println(io, eqs)
