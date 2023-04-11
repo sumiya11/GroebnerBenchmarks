@@ -10,13 +10,13 @@ jobs:
     permissions:
       contents: write
     steps:
-    - uses: actions/checkout@v1.0.0
-    - uses: julia-actions/setup-julia@v1
-      with:
-        version: 1
-    - run: julia -e 'using Pkg
-                    Pkg.add("./Generate")
-                    '
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@latest
+        with:
+          version: 1
+      - run: julia -e 'using Pkg;
+                       Pkg.dev("Generate");
+                       using Generate; generate();'
   build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
