@@ -1,5 +1,0 @@
-name = "Generate"
-uuid = "6dda989e-4a1d-4b48-a88b-690fae18c654"
-
-[deps]
-Groebner = "0b43b601-686d-58a3-8a1c-6623616c7cd4"

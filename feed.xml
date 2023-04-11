@@ -9,11 +9,11 @@
 
   <channel>
     <title>
-      <![CDATA[  Franklin Template  ]]>
+      <![CDATA[  Gröbner bases benchmarks  ]]>
     </title>
     <link> https://sumiya11.github.io/GroebnerBenchmarks/ </link>
     <description>
-      <![CDATA[  Example website using Franklin  ]]>
+      <![CDATA[  Polynomial systems for Gröbner bases  ]]>
     </description>
     <atom:link
       href="https://sumiya11.github.io/GroebnerBenchmarks/feed.xml"
@@ -23,38 +23,38 @@
 
 <item>
   <title>
-    <![CDATA[  More goodies  ]]>
+    <![CDATA[  Adding a new system  ]]>
   </title>
-  <link> https://sumiya11.github.io/GroebnerBenchmarks/menu2/index.html </link>
-  <guid> https://sumiya11.github.io/GroebnerBenchmarks/menu2/index.html </guid>
+  <link> https://sumiya11.github.io/GroebnerBenchmarks/howto/index.html </link>
+  <guid> https://sumiya11.github.io/GroebnerBenchmarks/howto/index.html </guid>
   <description>
-    <![CDATA[  A short description of the page which would serve as <strong>blurb</strong> in a <code>RSS</code> feed; you can use basic markdown here but the whole description string must be a single line &#40;not a multiline string&#41;. Like this one for instance. Keep in mind that styling is minimal in RSS so for instance don&#39;t expect maths or fancy styling to work; images should be ok though: <img src="https://upload.wikimedia.org/wikipedia/en/b/b0/Rick_and_Morty_characters.jpg" alt="" />  ]]>
+    <![CDATA[  –  ]]>
   </description>  
     
-  <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>  
+  <pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate>  
   
   
   <atom:author>
-    <atom:name>Septimia Zenobia</atom:name>
+    <atom:name>Alexander Demin</atom:name>
   </atom:author>
         
 </item>
 
 <item>
   <title>
-    <![CDATA[  Code blocks  ]]>
+    <![CDATA[  Polynomial systems  ]]>
   </title>
-  <link> https://sumiya11.github.io/GroebnerBenchmarks/menu1/index.html </link>
-  <guid> https://sumiya11.github.io/GroebnerBenchmarks/menu1/index.html </guid>
+  <link> https://sumiya11.github.io/GroebnerBenchmarks/systems/index.html </link>
+  <guid> https://sumiya11.github.io/GroebnerBenchmarks/systems/index.html </guid>
   <description>
-    <![CDATA[  A short description of the page which would serve as <strong>blurb</strong> in a <code>RSS</code> feed; you can use basic markdown here but the whole description string must be a single line &#40;not a multiline string&#41;. Like this one for instance. Keep in mind that styling is minimal in RSS so for instance don&#39;t expect maths or fancy styling to work; images should be ok though: <img src="https://upload.wikimedia.org/wikipedia/en/3/32/Rick_and_Morty_opening_credits.jpeg" alt="" />  ]]>
+    <![CDATA[  –  ]]>
   </description>  
     
-  <pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate>  
+  <pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate>  
   
   
   <atom:author>
-    <atom:name>Septimia Zenobia</atom:name>
+    <atom:name>Alexander Demin</atom:name>
   </atom:author>
         
 </item>
