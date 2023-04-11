@@ -25,9 +25,10 @@ jobs:
       with:
         version: 1
     - name: Generate systems
-        run: julia -e 'using Pkg;
-                      Pkg.develop(path="Generate");
-                      using Generate; generate();'
+      run: julia -e '
+            using Pkg;
+            Pkg.develop(path="Generate");
+            using Generate; generate();'
     # NOTE
     #   The steps below ensure that NodeJS and Franklin are loaded then it
     #   installs highlight.js which is needed for the prerendering step
