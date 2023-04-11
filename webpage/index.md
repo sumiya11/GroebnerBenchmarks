@@ -1,7 +1,5 @@
-@def title = "Benchmark systems for Gröbner bases"
+@def title = "Benchmarks for Gröbner bases"
 @def tags = ["syntax", "code"]
-
-#  Gröbner bases benchmarks
 
 The page [Polynomial systems](/systems/) contains polynomial systems useful for benchmarking Gröbner bases computations.
 
