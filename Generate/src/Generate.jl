@@ -14,6 +14,7 @@ function generate()
     ]
     
     path = (@__DIR__)*"/../generated"
+    @info "Writing to $path"
     for (name, eqs) in systems
         io = open("$path/$name.txt", "w")
         println(io, eqs)
