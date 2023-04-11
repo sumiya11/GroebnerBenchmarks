@@ -5,19 +5,7 @@ on:
       - main
       - master
 jobs:
-  generate:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@latest
-        with:
-          version: 1
-      - run: julia -e 'using Pkg;
-                       Pkg.develop("Generate");
-                       using Generate; generate();'
-  build-and-deploy:
+  generate-build-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -35,9 +23,13 @@ jobs:
     # packages such as PyPlot.
     # - run: pip install matplotlib
     - name: Install Julia
-      uses: julia-actions/setup-julia@v1
+      uses: julia-actions/setup-julia@latest
       with:
-        version: '1' # Latest stable Julia release.
+      version: 1
+    - name: Generate systems
+        run: julia -e 'using Pkg;
+                      Pkg.develop(path="Generate");
+                      using Generate; generate();'
     # NOTE
     #   The steps below ensure that NodeJS and Franklin are loaded then it
     #   installs highlight.js which is needed for the prerendering step
