@@ -1,0 +1,4 @@
+4
+("finite fields", "the rationals")
+Göran Björck and Ralf Fröberg, A faster way to count the solutions of inhomogeneous systems of algebraic equations, with applications to cyclic n-roots, in J. Symbolic Computation (1991) 12, pp 329-336.
+

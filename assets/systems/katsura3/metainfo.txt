@@ -1,0 +1,4 @@
+3
+("finite fields", "the rationals")
+S. Katsura, W. Fukuda, S. Inawashiro, N.M. Fujiki and R. Gebauer, Cell Biophysics, Vol 11, pages 309-319, 1987.
+
