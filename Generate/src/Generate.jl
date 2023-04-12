@@ -15,6 +15,7 @@ function generate_systems()
     ]
     
     path = (@__DIR__)*"/../../webpage/_assets/systems"
+    mkpath(path)
     @info "Writing to $path"
     cd(path)
     for (name, eqs) in systems
