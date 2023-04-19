@@ -1,0 +1,11 @@
+name:           Cyclic 3
+description:    Very cool system
+reference:      Göran Björck and Ralf Fröberg, A faster way to count the solutions of inhomogeneous systems of algebraic equations, with applications to cyclic n-roots, in J. Symbolic Computation (1991) 12, pp 329-336.
+base ring:      Z/Zp, Q
+variables:      z1,z2,z3
+dimension:      0
+isregular:      yes
+system:
+z1 + z2 + z3,
+z1*z2 + z1*z3 + z2*z3,
+z1*z2*z3 - 1

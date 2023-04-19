@@ -1,58 +1,97 @@
 module Generate
 
-using Groebner
+using AbstractAlgebra
 
-struct Metainfo
-    nvariables
-    ground
+struct SystemInfo
+    name
+    description
     reference
+    basering
+    variables
+    dimension
+    isregular
+    system
 end
 
-const _references = Dict(
-    "cyclic" => "Göran Björck and Ralf Fröberg, A faster way to count the solutions of inhomogeneous systems of algebraic equations, with applications to cyclic n-roots, in J. Symbolic Computation (1991) 12, pp 329-336.",
-    "katsura" => "S. Katsura, W. Fukuda, S. Inawashiro, N.M. Fujiki and R. Gebauer, Cell Biophysics, Vol 11, pages 309-319, 1987."
-)
+function read_system(io)
+    readvalue(io) = strip(last(split(readline(io), ":")))
+    name = readvalue(io)
+    description = readvalue(io)
+    reference = readvalue(io)
+    basering = readvalue(io)
+    variables = readvalue(io)
+    dimension = readvalue(io)
+    isregular = readvalue(io)
+    readline(io)
+    system = map(strip, split(read(io, String), ","))
+    SystemInfo(
+        name,
+        description,
+        reference,
+        basering,
+        variables,
+        dimension,
+        isregular,
+        system
+    )
+end
 
-function generate_systems()
+function read_systems(;path=(@__DIR__)*"/../../systems")
+    @info "Reading from $path"
+    systems = Vector{SystemInfo}()
+    for file in readdir(path)
+        io = open("$path/$file", "r")
+        systeminfo = read_system(io)
+        close(io)
+        push!(systems, systeminfo)
+    end
+    systems
+end
 
-    systems = [
-        ("noon3", Groebner.noonn(3), Metainfo(3, ("finite fields", "the rationals"), "--")),
-        ("noon4", Groebner.noonn(4), Metainfo(4, ("finite fields", "the rationals"), "--")),
-        ("noon5", Groebner.noonn(5), Metainfo(5, ("finite fields", "the rationals"), "--")),
-        ("cyclic4", Groebner.cyclicn(4), Metainfo(4, ("finite fields", "the rationals"), _references["cyclic"])),
-        ("cyclic5", Groebner.cyclicn(5), Metainfo(5, ("finite fields", "the rationals"), _references["cyclic"])),
-        ("katsura3", Groebner.katsuran(3), Metainfo(3, ("finite fields", "the rationals"), _references["katsura"])),
-        ("katsura4", Groebner.katsuran(4), Metainfo(4, ("finite fields", "the rationals"), _references["katsura"]))
-    ]
+function generate_in_different_formats(
+        systems; 
+        write_to=(@__DIR__)*"/../../webpage/_assets/systems")
     
-    path = (@__DIR__)*"/../../webpage/_assets/systems"
-    mkpath(path)
-    @info "Writing to $path"
-    cd(path)
-    for (name, eqs, meta) in systems
-        @info "Writing $name"
+    mkpath(write_to)
+    cd(write_to)
+    @info "Writing systems to $write_to"
+    for systeminfo in systems
+        name, description, reference = systeminfo.name, systeminfo.description, systeminfo.reference
+        basering, variables, system = systeminfo.basering, systeminfo.variables, systeminfo.system
+
+        @info "Writing $(systeminfo.name)"
         dirname = "$name"
         mkpath(dirname)
 
+        # write metainformation
         filename = "$name/metainfo.txt"
         io = open(filename, "w")
-        println(io, "$(meta.nvariables)\n$(meta.ground)\n$(meta.reference)\n")
+        println(io, "$(description)\n$(basering)\n$(reference)\n")
         close(io)
 
+        # write in .txt
         filename = "$name/$name.txt"
         io = open(filename, "w")
-        println(io, "$(join(map(string, eqs), ",\n"))")
+        println(io, name)
+        println(io, variables)
+        println(io, "$(join(map(string, system), ",\n"))")
         close(io)
 
+        # write in maple
         filename = "$name/$name.mpl"
         io = open(filename, "w")
-        println(io, "{\n$(join(map(string, eqs), ",\n"))\n}:")
+        println(io, name)
+        println(io, variables)
+        println(io, "{\n$(join(map(string, system), ",\n"))\n}:")
         close(io)
     end
     nothing
 end
 
-function generate_markdown()
+function generate_markdown(
+        systems; 
+        crossref=nothing,
+        write_to=(@__DIR__)*"/../../webpage/systems.md")
     md = """
     +++
     title = "Polynomial systems"
@@ -68,18 +107,15 @@ function generate_markdown()
     \\toc
 
     """
-    path = (@__DIR__)*"/../../webpage/_assets/systems"
-    @info "Reading from $path"
-    cd(path)
-    for name in readdir(".")
-        md *= "\n#### $name\n\n"
+    for systeminfo in systems
+        name, description, reference = systeminfo.name, systeminfo.description, systeminfo.reference
+        basering, variables, system = systeminfo.basering, systeminfo.variables, systeminfo.system
 
-        filename = "$name/metainfo.txt"
-        io = open(filename, "r")
-        nvars, ground, reference = readline(io), readline(io), readline(io)
-        md *= "System in $nvars variables over $ground.\n\n"
+        md *= "\n#### $name\n\n"
+        md *= "$description\n\n"
         md *= "Reference: $reference\n\n"
-        close(io)
+
+        md *= "System over $basering.\n\n"
 
         filename = "$name/$name.txt"
         md *= "[[txt]](../assets/systems/$filename) "
@@ -89,18 +125,24 @@ function generate_markdown()
         
         md *= "\n"
     end
-    writeto = (@__DIR__)*"/../../webpage/systems.md"
-    @info "Populating $writeto"
-    io = open(writeto, "w")
+    @info "Populating $write_to"
+    io = open(write_to, "w")
     println(io, md)
     close(io)
     nothing
 end
 
 function generate()
-    generate_systems()
-    generate_markdown()
+    systems = read_systems(path=(@__DIR__)*"/../../systems")
+    generate_in_different_formats(
+        systems, 
+        write_to=(@__DIR__)*"/../../webpage/_assets/systems"
+    )
+    generate_markdown(
+        systems,
+        crossref=(@__DIR__)*"/../../webpage/_assets/systems",
+        write_to=(@__DIR__)*"/../../webpage/systems.md"
+    )
 end
 
 end
-
