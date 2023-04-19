@@ -58,7 +58,7 @@ function generate_in_different_formats(
     for systeminfo in systems
         name, description, reference = systeminfo.name, systeminfo.description, systeminfo.reference
         basering, variables, system = systeminfo.basering, systeminfo.variables, systeminfo.system
-
+        
         @info "Writing $(systeminfo.name)"
         dirname = "$name"
         mkpath(dirname)
@@ -73,7 +73,7 @@ function generate_in_different_formats(
         filename = "$name/$name.txt"
         io = open(filename, "w")
         println(io, name)
-        println(io, variables)
+        println(io, "["*"$(map(x->"\"$(strip(x))\"", split(variables, ",")))"*"]")
         println(io, "$(join(map(string, system), ",\n"))")
         close(io)
 
@@ -81,7 +81,7 @@ function generate_in_different_formats(
         filename = "$name/$name.mpl"
         io = open(filename, "w")
         println(io, name)
-        println(io, variables)
+        println(io, "["*"$(map(x->"\"$(strip(x))\"", split(variables, ",")))"*"]")
         println(io, "{\n$(join(map(string, system), ",\n"))\n}:")
         close(io)
     end
@@ -110,12 +110,13 @@ function generate_markdown(
     for systeminfo in systems
         name, description, reference = systeminfo.name, systeminfo.description, systeminfo.reference
         basering, variables, system = systeminfo.basering, systeminfo.variables, systeminfo.system
+        dimension = systeminfo.dimension
 
-        md *= "\n#### $name\n\n"
+        md *= "\n---\n#### $name\n\n"
         md *= "$description\n\n"
         md *= "Reference: $reference\n\n"
 
-        md *= "System over $basering.\n\n"
+        md *= "System over $basering of dimension $dimension.\n\n"
 
         filename = "$name/$name.txt"
         md *= "[[txt]](../assets/systems/$filename) "
